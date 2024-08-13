@@ -17,4 +17,9 @@ public class MailServiceTest {
     public void sayHelloTest(){
         System.out.println(mailService.sayHello());
     }
+
+    @Test
+    public void sendTextMailTest(){
+        mailService.sendTextMail("1844912514@qq.com","Java发送邮件","这是第一封邮件内容");
+    }
 }
