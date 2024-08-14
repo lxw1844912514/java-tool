@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>邮件模版</title>
+</head>
+<body>
+你好，感谢注册，这是验证邮件。
+<a href="#" th:href="@{http://localhost:8009/user/?id={id}(id=${id})}">点击注册</a>
+</body>
+</html>
