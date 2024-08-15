@@ -2,12 +2,17 @@ package com.ydp.service;
 
 import com.ydp.MailApplication;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.web.filter.RequestContextFilter;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
+import javax.servlet.ServletRequest;
+import java.util.Objects;
 
 
 //@RunW
@@ -19,6 +24,11 @@ public class MailServiceTest {
 
     @Resource
     TemplateEngine templateEngine;
+    @Qualifier("httpServletRequest")
+    @Autowired
+    private ServletRequest httpServletRequest;
+    @Autowired
+    private RequestContextFilter requestContextFilter;
 
     @Test
     public void sayHelloTest() {
@@ -130,5 +140,32 @@ public class MailServiceTest {
         String emailContent=templateEngine.process("emailTemplate",context); //将变量带入模版文件中
         mailService.sendHtmlMail("1844912514@qq.com","这是模版邮件",emailContent);
 
+    }
+
+    @Test
+    public void getResourceTest(){
+//        String resourcePath = Objects.requireNonNull(MailServiceTest.class.getClassLoader().getResource("qrcode/1.html")).getPath();
+//        System.out.println(resourcePath);
+
+//        String resourcePath2 = Objects.requireNonNull(MailServiceTest.class.getResource("qrcode/2.html")).getPath();
+//        System.out.println(resourcePath2);
+
+        String imgPath = Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResource("static/qrcode/2.html")).getPath();
+        System.out.println("图片路径：" + imgPath);
+
+//        String resourcePath3 = servletContext.getRealPath("/static/resource.txt");
+//        System.out.println(resourcePath3);
+    }
+
+
+    @Test
+    public void pathTest(){
+        String path=httpServletRequest.getServerName();
+        System.out.println(path);
+        String path3= String.valueOf(httpServletRequest.getLocalPort());
+        System.out.println(path3);
+
+        String path2= requestContextFilter.toString();
+        System.out.println(path2);
     }
 }
