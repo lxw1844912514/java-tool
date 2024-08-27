@@ -17,16 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 public class MailApplication {
 
-    @RequestMapping("/")
-    public String hello() {
-        log.info("信息日志");
-
-        return "hello";
-    }
-
     @GetMapping("/user")
     public String user(String id) {
-
         log.info("user信息日志{}", id);
         return "我的名字是lxw";
     }
